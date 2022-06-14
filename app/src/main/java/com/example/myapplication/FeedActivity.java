@@ -3,13 +3,21 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private RecyclerView rvPosts; //THIS LINE NOT IN GUIDE
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         rvPosts = findViewById(R.id.rvPosts);
+        swipeContainer = findViewById(R.id.swipeContainer);
 
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(this, allPosts);
@@ -37,6 +47,17 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         // query posts from Parstagram
         queryPosts();
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                allPosts.clear();
+                queryPosts();
+            }
+        });
     }
     private void queryPosts() {
         // specify what type of data we want to query - Post.class
@@ -65,8 +86,28 @@ public class FeedActivity extends AppCompatActivity {
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
 
+    public void onLogout(MenuItem item) {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent intent = new Intent(FeedActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+    public void onFeed(MenuItem item) {
+        Intent intent = new Intent(FeedActivity.this, FeedActivity.class);
+        startActivity(intent);
+    }
+    public void onCompose(MenuItem item) {
+        Intent intent = new Intent(FeedActivity.this, ComposeActivity.class);
+        startActivity(intent);
+    }
 }

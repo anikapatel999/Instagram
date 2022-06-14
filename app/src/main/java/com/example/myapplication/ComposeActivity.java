@@ -184,4 +184,8 @@ public class ComposeActivity extends AppCompatActivity {
         Intent intent = new Intent(ComposeActivity.this, FeedActivity.class);
         startActivity(intent);
     }
+    public void onCompose(MenuItem item) {
+        Intent intent = new Intent(ComposeActivity.this, ComposeActivity.class);
+        startActivity(intent);
+    }
 }
