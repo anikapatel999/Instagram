@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (ParseUser.getCurrentUser() != null) {
-            goHomeActivity();
+            goComposeActivity();
         }
 
         etUsername = findViewById(R.id.etUsername);
@@ -52,19 +52,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
               if (e != null) {
-                  // TODO: error handling for incorrect passwords and stuff (send a toast or smth)
                   Log.e(TAG, "Issue with login", e);
                   Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
                   return;
               }
-              goHomeActivity(); //video guy uses MainActivity, but you used
+              goComposeActivity(); //video guy uses MainActivity, but you used
                 // MainActivity for your splash screen (oops)
               Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void goHomeActivity () {
-        Intent i = new Intent (this, HomeActivity.class);
+    private void goComposeActivity () {
+        Intent i = new Intent (this, ComposeActivity.class);
         startActivity(i);
         finish();
     }

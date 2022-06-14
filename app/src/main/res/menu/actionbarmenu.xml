@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/feed"
+        android:title="@string/feed"
+        android:icon="@drawable/ic_baseline_home_24"
+        app:showAsAction="ifRoom"
+        android:onClick="onFeed"/>
+    <item
         android:id="@+id/logout"
         android:title="@string/log_out"
         android:icon="@drawable/ic_baseline_close_24"

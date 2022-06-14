@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="log_out">Log out</string>
+    <string name="feed">feed</string>
 </resources>
