@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private Button btnSignup;
 
 
     @Override
@@ -43,8 +44,17 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+        btnSignup = findViewById(R.id.btnSignup);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick signup button");
+                goSignupActivity();
+            }
+        });
 
     }
+
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login user" + username);
         // TODO: navigate to the main activity if the user has signed in properly
@@ -64,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void goComposeActivity () {
         Intent i = new Intent (this, ComposeActivity.class);
+        startActivity(i);
+        finish();
+    }
+    private void goSignupActivity () {
+        Intent i = new Intent(this, SignupActivity.class);
         startActivity(i);
         finish();
     }

@@ -5,10 +5,11 @@
       <map>
         <entry key="app/src/main/res/layout/activity_compose.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.28442028985507245" />
+        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.22922955941462864" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3045379638671875" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.24841003417968752" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1949687570765399" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.24094202898550723" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.28442028985507245" />
         <entry key="app/src/main/res/menu/actionbarmenu.xml" value="0.1" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />
