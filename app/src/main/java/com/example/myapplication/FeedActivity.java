@@ -20,6 +20,7 @@ import com.parse.ParseUser;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class FeedActivity extends AppCompatActivity {
     private RecyclerView rvPosts;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
+    public int scrollind = 0;
+    // public int minCreatedAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class FeedActivity extends AppCompatActivity {
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        // rvPosts.setLayoutManager(new LinearLayoutManager(this));
         // query posts from Parstagram
         queryPosts();
 
@@ -91,6 +94,7 @@ public class FeedActivity extends AppCompatActivity {
         query.setLimit(20);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -108,11 +112,31 @@ public class FeedActivity extends AppCompatActivity {
 
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
-                adapter.notifyItemRangeInserted(20, 20);
+                scrollind = scrollind + query.getLimit();
+                adapter.notifyItemRangeInserted(scrollind, 20);
                 // swipeContainer.setRefreshing(false);
             }
         });
     }
+//    Post currentPost =
+//    minCreatedAt = calculateTimeAgo(currentPost.getCreatedAt());
+//
+//    public long  calculateTimeAgo(Date createdAt) {
+//
+//        int SECOND_MILLIS = 1000;
+//        int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+//        int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+//        int DAY_MILLIS = 24 * HOUR_MILLIS;
+//
+//        try {
+//            createdAt.getTime();
+//            long time = createdAt.getTime();
+//            return time
+//        } catch (Exception e) {
+//            Log.i("Error:", "getRelativeTimeAgo failed", e);
+//            e.printStackTrace();
+//        }
+//    }
 
     private void queryPosts() {
         // specify what type of data we want to query - Post.class
@@ -120,7 +144,7 @@ public class FeedActivity extends AppCompatActivity {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(20);
+        query.setLimit(20); //CHANGE BACK TO 20
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
