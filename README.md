@@ -51,7 +51,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-- [Video (on dropbox)](https://www.dropbox.com/s/7mkap5999ftlhyj/instagram.webm?dl=0)
+- [Video (on dropbox)](https://www.dropbox.com/s/7mkap5999ftlhyj/instagram.webm?dl=0) because the file is too large to upload
 
 ## Credits
 
