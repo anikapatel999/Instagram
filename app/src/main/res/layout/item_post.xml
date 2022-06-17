@@ -13,7 +13,13 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:text="anika" />
+        tools:text="kjnkjnj" />
+
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
 
     <ImageView
         android:id="@+id/ivImage"
@@ -21,6 +27,12 @@
         android:layout_height="300dp"
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:text="@string/like" />
 
     <TextView
         android:id="@+id/tvDescription"

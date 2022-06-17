@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvTimestamp;
     ImageView ivImage;
     TextView tvDescription;
+    TextView tvLikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         tvTimestamp = (TextView) findViewById(R.id.tvTimestamp);
         ivImage = (ImageView) findViewById(R.id.ivImage);
         tvDescription = (TextView) findViewById(R.id.tvDescription);
+        tvLikes = (TextView) findViewById(R.id.tvLikes);
 
 
         // unwrap the movie passed in via intent, using its simple name as a key
@@ -48,6 +50,8 @@ public class DetailActivity extends AppCompatActivity {
         tvPoster.setText(post.getUser().getUsername());
 
         tvDescription.setText(post.getKeyDescription());
+
+        tvLikes.setText(String.valueOf(post.getNumLikes())); //the post.getNumLikes() crashes this
 
         String time = calculateTimeAgo(post.getCreatedAt());
         tvTimestamp.setText(time);

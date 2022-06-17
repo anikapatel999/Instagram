@@ -6,4 +6,5 @@
     <string name="password">password</string>
     <string name="no_account_sign_up">No account? Sign Up</string>
     <string name="login">Login</string>
+    <string name="like">Like</string>
 </resources>

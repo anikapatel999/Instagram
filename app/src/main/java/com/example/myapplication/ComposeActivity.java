@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -135,7 +136,10 @@ public class ComposeActivity extends AppCompatActivity {
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
+        post.setNumLikes(0);
         post.setUser(currentUser);
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
+        pb.setVisibility(ProgressBar.VISIBLE);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -144,6 +148,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                pb.setVisibility(ProgressBar.INVISIBLE);
                 Log.i(TAG, "Post save was successful", e);
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);

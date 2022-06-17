@@ -34,4 +34,11 @@
         android:layout_height="wrap_content"
         android:text="Submit" />
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="165dp"
+        android:visibility="invisible" />
+
 </LinearLayout>
