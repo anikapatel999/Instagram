@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
-import android.os.Parcelable;
-
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import org.json.JSONArray;
+
+import java.util.List;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -13,6 +15,7 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
     public static final String KEY_LIKES = "numLikes";
+    public static final String KEY_USERLIKES = "usersLiked";
 
     public String getKeyDescription() {
         return getString(KEY_DESCRIPTION);
@@ -44,6 +47,14 @@ public class Post extends ParseObject {
 
     public void setNumLikes(int numLikes) {
         put(KEY_LIKES, numLikes);
+    }
+
+    public JSONArray getUsersLiked() {
+        return getJSONArray(KEY_USERLIKES);
+    }
+
+    public void setUsersLiked(JSONArray likes) {
+        put(KEY_USERLIKES, likes);
     }
 
 }

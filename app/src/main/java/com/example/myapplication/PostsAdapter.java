@@ -10,14 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.Date;
@@ -93,9 +98,46 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int numLikes = post.getNumLikes() + 1;
-                    post.setNumLikes(numLikes);
-                    post.saveInBackground();
+                    JSONArray currentLikes = post.getUsersLiked();
+                    int position = -1;
+                    for (int i = 0; i < currentLikes.length(); i++ ) {
+                        try {
+                            if (currentLikes.get(i).equals(ParseUser.getCurrentUser().getObjectId())) {
+                                position = i;
+                                break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (position == -1) {
+                        int numLikes = post.getNumLikes() + 1;
+                        Log.i("PostAdapter",""+numLikes);
+                        post.setNumLikes(numLikes);
+                        //post.put("numLikes",numLikes);
+                        currentLikes.put(ParseUser.getCurrentUser().getObjectId());
+                        post.setUsersLiked(currentLikes);
+                        //post.put("usersLiked",currentLikes);
+                        // post.saveInBackground();
+                        post.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e!=null)
+                                {
+                                    Log.e("PostAdapter","The error", e);
+                                }
+                            }
+                        });
+                        Toast.makeText(context, "Post liked!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        int numLikes = post.getNumLikes() - 1;
+                        post.setNumLikes(numLikes);
+                        currentLikes.remove(position);
+                        post.setUsersLiked(currentLikes);
+                        post.saveInBackground();
+                        Toast.makeText(context, "Post unliked!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             ParseFile image = post.getImage();
